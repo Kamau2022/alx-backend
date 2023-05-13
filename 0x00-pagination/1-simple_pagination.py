@@ -33,7 +33,7 @@ class Server:
                 reader = csv.reader(f)
                 dataset = [row for row in reader]
 
-        return self.__dataset
+        return dataset
 
     def index_range(page, page_size):
         """a function that return a tuple of size
