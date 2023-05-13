@@ -41,7 +41,7 @@ class Server:
         value = self.dataset()
         items = []
         """assert type(page_size) is int and type(page) is int"""
-        assert type(page_size) is int and page_size > 0
+        """assert type(page_size) is int and page_size > 0"""
         assert type(page) is int and page > 0
         try:
             for x in range(index[0], index[5]):
