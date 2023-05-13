@@ -40,7 +40,7 @@ class Server:
         index = self.index_range(page, page_size)
         value = self.dataset()
         items = []
-        assert type(page_size) is int and type(page) is int
+        """assert type(page_size) is int and type(page) is int"""
         assert type(page_size) is int and page_size > 0
         assert type(page) is int and page > 0
         try:
