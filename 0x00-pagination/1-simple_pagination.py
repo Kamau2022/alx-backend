@@ -25,21 +25,28 @@ class Server:
 
         return self.__dataset
 
-    def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """that takes two integer arguments page with default 
-           value 1 and page_size with default value 10.    
-        """
-        with open(self.DATA_FILE) as f:
-                reader = csv.reader(f)
-                dataset = [row for row in reader]
-
-        return dataset
-
-    def index_range(page, page_size):
+    def index_range(self, page, page_size):
         """a function that return a tuple of size
-           two containing a start index and an end index 
+           two containing a start index and an end index
         """
         start_index = page_size * (page - 1)
         end_index = page * page_size
         return (start_index, end_index)
 
+    def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """that takes two integer arguments page with default
+           value 1 and page_size with default value 10.
+        """
+        index = self.index_range(page, page_size)
+        value = self.dataset()
+        items = []
+        assert type(page_size) is int
+        assert type(page) is int
+        assert type(page_size) is int and page_size > 0
+        assert type(page) is int and page > 0
+        try:
+            for x in range(index[0], index[1]):
+                items.append(value[x])
+            return items
+        except IndexError:
+            return []
