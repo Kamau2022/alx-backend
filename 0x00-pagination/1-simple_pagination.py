@@ -30,7 +30,7 @@ class Server:
            two containing a start index and an end index
         """
         start_index = page_size * (page - 1)
-        end_index = page + page_size
+        end_index = page * page_size
         return (start_index, end_index)
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
