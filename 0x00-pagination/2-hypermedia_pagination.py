@@ -64,14 +64,8 @@ class Server:
             'page_size': len(data), 
             'page': page, 
             'data': data, 
-            'next_page':page + 1, 
-            'prev_page': page - 1, 
+            'next_page':page + 1 if page + 1 <= total_pages else None,
+            'prev_page': page - 1  if page > 1 else None,
             'total_pages': total_pages
             }
-        if page - 1 == 0:
-            k['prev_page'] = None
-        else:
-            k['prev_page'] = page - 1
-        if data == []:
-            k['next_page'] = None
         return k
