@@ -52,21 +52,27 @@ class Server:
             return items
         except IndexError:
             return []
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """
+        Parameters
+        ---------
+        page: int
+            the start of pagination
+        page_size: int
+            the maximum number of object returned
 
-    def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
-        """that takes two integer arguments page with default
-           value 1 and page_size with default value 10.
+        Returns
+        -------
+        dict
+            the appropriate page of the dataset or the correct list of row
         """
         total_pages = math.ceil(len(self.dataset()) / page_size)
-        index = self.index_range(page, page_size)
         data = self.get_page(page, page_size)
-        k = {
-            "page_size": len(data) if page_size >= len(data)
-            else page_size,
-            'page': page,
-            'data': data,
-            'next_page': page + 1 if page + 1 <= total_pages else None,
-            'prev_page': page - 1 if page > 1 else None,
-            'total_pages': total_pages
-            }
-        return k
+        new_dict = {"page_size": len(data) if page_size >= len(data)
+                    else page_size,
+                    "page": page,
+                    "data": data,
+                    "next_page": page + 1 if page + 1 <= total_pages else None,
+                    "prev_page": page - 1 if page > 1 else None,
+                    "total_pages": total_pages}
+        return new_dict
