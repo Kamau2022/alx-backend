@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""module on pagination"""
+"""
+Module 1-simple_pagination
+"""
 
 import csv
 import math
-from typing import List
+from typing import List, Tuple
 
 
 class Server:
@@ -25,24 +27,42 @@ class Server:
 
         return self.__dataset
 
-    def index_range(self, page: int, page_size: int):
-        """a function that return a tuple of size
-           two containing a start index and an end index
+    def index_range(self, page: int, page_size: int) -> Tuple[int, int]:
         """
-        start_index = page_size * (page - 1)
+        Parameters
+        ---------
+        page: int
+            the start of pagination
+        page_size: int
+            the maximum number of object returned
+
+        Returns
+        -------
+        Tuple
+            tuple holding the beginning and ending page numbers
+        """
         end_index = page * page_size
+        start_index = end_index - page_size
         return (start_index, end_index)
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """that takes two integer arguments page with default
-           value 1 and page_size with default value 10.
         """
-        index = self.index_range(page, page_size)
-        value = self.dataset()
-        items = []
-        assert type(page_size) is int and type(page) is int
-        assert type(page_size) is int and page_size > 0
-        assert type(page) is int and page > 0
-        if len(value) < index[0]:
+        Parameters
+        ---------
+        page: int
+            the start of pagination
+        page_size: int
+            the maximum number of object returned
+
+        Returns
+        -------
+        list
+            the appropriate page of the dataset or the correct list of row
+        """
+        assert type(page) == int and page > 0
+        assert type(page_size) == int and page_size > 0
+        result = self.index_range(page, page_size)
+        data = self.dataset()
+        if len(data) < result[0]:
             return []
-        return value[index[0]: index[1]]
+        return data[result[0]: result[1]]
