@@ -61,11 +61,14 @@ class Server:
         """
         total_pages = math.ceil(len(self.dataset()) / page_size)
         data = self.get_page(page, page_size)
-        new_dict = {"page_size": len(data),
+        page_dict = {"page_size": page_size,
                     "page": page,
                     "data": data,
                     "next_page": page + 1 if page + 1 <= total_pages else None,
                     "prev_page": page - 1 if page > 1 else None,
                     "total_pages": total_pages}
+        if data == []:
+            page_dict['page_size'] = 0
+            page_dict['next_page'] = None
 
-        return new_dict
+        return page_dict
