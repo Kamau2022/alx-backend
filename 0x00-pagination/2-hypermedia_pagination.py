@@ -57,19 +57,21 @@ class Server:
         """that takes two integer arguments page with default
            value 1 and page_size with default value 10.
         """
-        value = self.dataset()
-        total_pages = int(math.ceil(len(value) / page_size))
+        total_pages = math.ceil(len(self.dataset()) / page_size)
         index = self.index_range(page, page_size)
         data = self.get_page(page, page_size)
-        prev_page = page - 1
-        next_page = page + 1
-        k = {'page_size': len(data), 'page': page, 'data': data, 'next_page':
-             next_page, 'prev_page': prev_page, 'total_pages': total_pages}
-        if prev_page == 0:
+        k = {
+            'page_size': len(data), 
+            'page': page, 
+            'data': data, 
+            'next_page':page + 1, 
+            'prev_page': page - 1, 
+            'total_pages': total_pages
+            }
+        if page - 1 == 0:
             k['prev_page'] = None
         else:
-            k['prev_page'] = prev_page
-        if len(value) < index[0]:
-            k['page_size'] = 0
+            k['prev_page'] = page - 1
+        if data == []:
             k['next_page'] = None
         return k
