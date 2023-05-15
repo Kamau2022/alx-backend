@@ -28,21 +28,11 @@ class Server:
         return self.__dataset
 
     def index_range(self, page: int, page_size: int) -> Tuple[int, int]:
-        """
-        Parameters
-        ---------
-        page: int
-            the start of pagination
-        page_size: int
-            the maximum number of object returned
-
-        Returns
-        -------
-        Tuple
-            tuple holding the beginning and ending page numbers
+        """a function that return a tuple of size
+           two containing a start index and an end index
         """
         end_index = page * page_size
-        start_index = end_index - page_size
+        start_index = page_size * (page - 1)
         return (start_index, end_index)
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
