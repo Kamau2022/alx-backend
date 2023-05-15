@@ -64,7 +64,7 @@ class Server:
         index = self.index_range(page, page_size)
         data = self.get_page(page, page_size)
         k = {'page_size': page_size, 'page': page, 'data': data, 'next_page':
-             next_page, 'prev_page': 8, 'total_pages': total_pages}
+             next_page, 'prev_page': prev_page, 'total_pages': total_pages}
         if prev_page == 0:
             k['prev_page'] = None
         else:
