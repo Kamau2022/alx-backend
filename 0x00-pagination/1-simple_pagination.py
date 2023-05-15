@@ -45,6 +45,4 @@ class Server:
         assert type(page) is int and page > 0
         if len(value) < index[0]:
             return []
-        for x in range(index[0], index[1]):
-            items.append(value[x])
-        return items
+        return value[index[0]: index[1]]
