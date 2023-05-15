@@ -58,7 +58,7 @@ class Server:
            value 1 and page_size with default value 10.
         """
         value = self.dataset()
-        total_pages = math.ceil(len(value) / page_size)
+        total_pages = int(math.ceil(len(value) / page_size))
         index = self.index_range(page, page_size)
         data = self.get_page(page, page_size)
         prev_page = page - 1
