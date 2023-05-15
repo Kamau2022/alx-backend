@@ -53,7 +53,7 @@ class Server:
         except IndexError:
             return []
 
-    def get_hyper(self, page: int = 1, page_size: int = 10):
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
         """that takes two integer arguments page with default
            value 1 and page_size with default value 10.
         """
