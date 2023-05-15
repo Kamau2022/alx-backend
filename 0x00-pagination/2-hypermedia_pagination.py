@@ -59,8 +59,8 @@ class Server:
         """
         prev_page = page - 1
         next_page = page + 1
-        value = len(self.dataset())
-        total_pages = math.ceil(value / page_size)
+        value = self.dataset()
+        total_pages = math.ceil(len(value) / page_size)
         index = self.index_range(page, page_size)
         data = self.get_page(page, page_size)
         k = {'page_size': page_size, 'page': page, 'data': data, 'next_page':
@@ -69,7 +69,7 @@ class Server:
             k['prev_page'] = None
         else:
             k['prev_page'] = prev_page
-        if data == []:
+        if len(value) < index[0]:
             k['page_size'] = 0
             k['next_page'] = None
         return k
