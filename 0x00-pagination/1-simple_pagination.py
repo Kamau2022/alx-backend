@@ -39,12 +39,12 @@ class Server:
         """that takes two integer arguments page with default
            value 1 and page_size with default value 10.
         """
+        index = self.index_range(page, page_size)
+        value = self.dataset()
+        items = []
         assert type(page_size) is int and type(page) is int
         assert type(page_size) is int and page_size > 0
         assert type(page) is int and page > 0
-        items = []
-        index = self.index_range(page, page_size)
-        value = self.dataset()
         try:
             for x in range(index[0], index[1]):
                 items.append(value[x])
