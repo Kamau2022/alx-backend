@@ -43,9 +43,8 @@ class Server:
         assert type(page_size) is int and type(page) is int
         assert type(page_size) is int and page_size > 0
         assert type(page) is int and page > 0
-        try:
-            for x in range(index[0], index[1]):
-                items.append(value[x])
-            return items
-        except IndexError:
+        if len(value) < index[0]:
             return []
+        for x in range(index[0], index[1]):
+            items.append(value[x])
+        return items
