@@ -49,8 +49,9 @@ class Server:
         """that takes two integer arguments page with default
            value 1 and page_size with default value 10.
         """
-        assert type(page) == int and page > 0
-        assert type(page_size) == int and page_size > 0
+        assert type(page_size) is int and type(page) is int
+        assert type(page_size) is int and page_size > 0
+        assert type(page) is int and page > 0
         items = []
         result = self.index_range(page, page_size)
         data = self.dataset()
