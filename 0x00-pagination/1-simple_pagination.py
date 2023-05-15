@@ -27,12 +27,12 @@ class Server:
 
         return self.__dataset
 
-    def index_range(self, page: int, page_size: int) -> Tuple[int, int]:
+    def index_range(self, page: int, page_size: int):
         """a function that return a tuple of size
            two containing a start index and an end index
         """
-        end_index = page * page_size
         start_index = page_size * (page - 1)
+        end_index = page * page_size
         return (start_index, end_index)
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
