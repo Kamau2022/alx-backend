@@ -53,10 +53,11 @@ class Server:
         assert type(page_size) is int and page_size > 0
         assert type(page) is int and page > 0
         items = []
-        result = self.index_range(page, page_size)
-        data = self.dataset()
-        if len(data) < result[0]:
+        index = self.index_range(page, page_size)
+        value = self.dataset()
+        try:
+            for x in range(index[0], index[1]):
+                items.append(value[x])
+            return items
+        except IndexError:
             return []
-        for x in range(result[0], result[1]):
-            items.append(data[x])
-        return items
