@@ -17,6 +17,8 @@ class FIFOCache(BaseCaching):
         """assign to the dictionary self.cache_data the
            item value for the key key
         """
+        if key is None or item is None:
+            return
         self.cache_data[key] = item
         length = len(self.cache_data)
         first_key = list(self.cache_data.keys())[0]
