@@ -16,6 +16,8 @@ class BasicCache(BaseCaching):
         """a function that assign to the dictionary self.cache_data
            the item value for the key
         """
+        if key is None or item is None:
+            return
         self.cache_data[key] = item
         return self.cache_data
 
