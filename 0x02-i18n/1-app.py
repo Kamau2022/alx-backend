@@ -4,6 +4,11 @@ from flask import Flask
 from flask_babel import Babel
 app = Flask(__name__)
 babel = Babel(app)
+@app.route('/')
+def index():
+    """a function that returns index page
+    """
+    return render_template('0-index.html')
 
 
 class Config:
