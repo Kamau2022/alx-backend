@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """a module on babel"""
 from flask import Flask
-from flask_babelplus import Babel
-
+from flask_babel import Babel
+app = Flask(__name__)
+babel = Babel(app)
 
 
 class Config:
@@ -14,6 +15,4 @@ class Config:
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
-app = Flask(__name__)
 app.config.from_object(Config)
-babel = Babel(app)
