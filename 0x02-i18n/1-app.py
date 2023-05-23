@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """a module on babel"""
 from flask import Flask
-from flask_babel import Babel
+from flask_babelplus import Babel
+
 
 
 class Config:
