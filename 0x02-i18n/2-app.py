@@ -4,6 +4,7 @@
 from flask import request
 
 @babel.localeselector
+
 def get_locale():
     """determine the best match with our supported languages
     """
