@@ -8,7 +8,7 @@ babel = Babel(app)
 def index():
     """a function that returns index page
     """
-    return render_template('0-index.html')
+    return render_template('1-index.html')
 
 
 class Config:
