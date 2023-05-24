@@ -19,12 +19,12 @@ class Config:
 
 
 @babel.localeselector
-def get_locale() -> str:
+def get_locale(request, app) -> str:
     """determine the best match with our supported languages
     """
-    locale = request.get('locale')
-    if locale == 'fr':
-        return 'fr'
+    locale = request.args.get('locale')
+    if locale and locale in app.config["LANGUAGES"]:
+        return locale
     else:
         return request.accept_languages.best_match(app.config['LANGUAGES'])
 
