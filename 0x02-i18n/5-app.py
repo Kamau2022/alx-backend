@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""a module to get locale from request
-"""
-from flask_babel import Babel
+""" Basic Babel setup """
 from flask import Flask, render_template, request, g
+from flask_babel import Babel, _
+from typing import Union
+
 
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
@@ -12,62 +13,67 @@ users = {
 }
 
 
-class Config:
-    """Config class that has a LANGUAGES class attribute
-       equal to ["en", "fr"]
-    """
+class Config(object):
+    """ Configuration Babel """
     LANGUAGES = ["en", "fr"]
-    BABEL_DEFAULT_LOCALE = "en"
-    BABEL_DEFAULT_TIMEZONE = "UTC"
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
+    BABEL_DEFAULT_LOCALE = 'en'
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 app.config.from_object(Config)
 babel = Babel(app)
 
 
-def get_user():
-    """function that returns a user dictionary or None if the
-       ID cannot be found or if login_as was not passed.
+@app.before_request
+def before_request(login_as: int = None):
+    """ Request of each function
     """
-    try:
-        user_id = request.args.get('login_as', None)
-        return users.get(int(user_id), None) if user_id is not None else None
-    except Exception:
+    user: dict = get_user()
+    print(user)
+    g.user = user
+
+
+def get_user() -> Union[dict, None]:
+    """ Get the user of the dict
+
+        Return User
+    """
+    login_user = request.args.get('login_as', None)
+
+    if login_user is None:
         return None
 
+    user: dict = {}
+    user[login_user] = users.get(int(login_user))
 
-@app.before_request
-def before_request() -> None:
-    """uses get_user to find a user if any,
-       and set it as a global on flask.g.user.
-    """
-    g.user = get_user()
+    return user[login_user]
 
 
 @babel.localeselector
-def get_locale() -> str:
-    """determine the best match with our supported languages
+def get_locale():
+    """ Locale language
+
+        Return:
+            Best match to the language
     """
-    for parameter in request.query_string.decode('utf-8').split('&'):
-        try:
-            key, value = parameter.split('=')
-            if key == 'locale' and value in app.config["LANGUAGES"]:
-                return value
-        except ValueError:
-            continue
-    return request.accept_languages.best_match(app.config["LANGUAGES"])
+    locale = request.args.get('locale', None)
+
+    if locale and locale in app.config['LANGUAGES']:
+        return locale
+
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-@app.route("/", strict_slashes=False)
-def index():
-    """a function that returns index page
+@app.route('/', methods=['GET'], strict_slashes=False)
+def hello_world():
+    """ Greeting
+
+        Return:
+            Initial template html
     """
-    try:
-        return render_template("5-index.html")
-    except ValueError as exception:
-        print(exception.__str__())
+    return render_template('5-index.html')
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port="5000")
