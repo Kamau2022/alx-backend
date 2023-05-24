@@ -18,6 +18,9 @@ class Config:
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
+app.config.from_object(Config)
+
+
 @babel.localeselector
 def get_locale() -> str:
     """determine the best match with our supported languages
